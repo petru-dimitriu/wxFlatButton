@@ -2,13 +2,14 @@
 A simple flat button custom widget for wxWidgets. Tested on wxWidgets 2.9.*
 
 ## Overview
-A modern simplistic flat button which may contain to rows of text of different sizes.
+A modern simplistic flat button which may contain two rows of text of different sizes.
 
 ## Screenshots
 ![wxPianoControl](https://raw.githubusercontent.com/petru-dimitriu/wxFlatButton/master/screen1.png)
 
 ## API
 The prototype of the constructor is as follows:
+
 `wxFlatButton(wxWindow* parent, const long id, wxString SmallText,
                  wxString BigText = "", wxFont f = *wxNORMAL_FONT,
                  int smallSize = 10, int bigSize = 15);`
