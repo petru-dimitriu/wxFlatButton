@@ -15,7 +15,7 @@ The prototype of the constructor is as follows:
                  int smallSize = 10, int bigSize = 15);`
 				 
 ### Events
-The Piano widget sends the following wxCommandEvents:
+The widget sends the following wxCommandEvents:
 
 * `EVT_FLATBUTTON_DOWN`, when the user presses the button
 * `EVT_FLATBUTTON_UP`, when the user releases the button
