@@ -5,14 +5,16 @@ A simple flat button custom widget for wxWidgets. Tested on wxWidgets 2.9.*
 A modern simplistic flat button which may contain two rows of text of different sizes.
 
 ## Screenshots
-![wxPianoControl](https://raw.githubusercontent.com/petru-dimitriu/wxFlatButton/master/screen1.png)
+![wxFlatButton](https://raw.githubusercontent.com/petru-dimitriu/wxFlatButton/master/screen1.png)
 
 ## API
 The prototype of the constructor is as follows:
 
 `wxFlatButton(wxWindow* parent, const long id, wxString SmallText,
                  wxString BigText = "", wxFont f = *wxNORMAL_FONT,
-                 int smallSize = 10, int bigSize = 15);`
+                 int smallSize = 10, int bigSize = 15,
+                 wxPoint position = wxDefaultPosition,
+                 wxSize size = wxDefaultSize);`
 				 
 ### Events
 The widget sends the following wxCommandEvents:

@@ -7,21 +7,23 @@
 
 #include "flatbuttonctl.h"
 
-wxFlatButton :: wxFlatButton(wxWindow * parent, const long id, wxString smallText, wxString bigText, wxFont font, int smallSize, int bigSize) : wxPanel(parent, id)
+wxFlatButton :: wxFlatButton(wxWindow * parent, const long id, wxString smallText, wxString bigText, wxFont font, int smallSize, int bigSize, wxPoint position, wxSize size) : wxPanel(parent, id, position, size)
 {
     SmallText = smallText;
     this->font = font;
     BigText = bigText;
     SmallSize = smallSize;
     BigSize = bigSize;
-    DoGetBestClientSize();
+
+    if (size == wxDefaultSize)
+        SetClientSize(CalculateBestSize());
 }
 
-wxSize wxFlatButton::DoGetBestClientSize()
+wxSize wxFlatButton::CalculateBestSize()
 {
     wxMemoryDC dc;
-    x = 5, y = 5, height = 5, width = 5;
-    int smallTextWidth, bigTextWidth;
+    long height = 5, width = 5;
+    int smallTextWidth=0, bigTextWidth=0;
 
     wxFont f = font;
 
@@ -46,18 +48,23 @@ wxSize wxFlatButton::DoGetBestClientSize()
     SetMinClientSize(wxSize(width,height));
 
     return wxSize(width,height);
+}
 
+wxSize wxFlatButton::DoGetBestClientSize()
+{
+    return CalculateBestSize();
 }
 
 void wxFlatButton:: paintEvent (wxPaintEvent &evt)
 {
     int width = GetSize().GetWidth(),
         height = GetSize().GetHeight();
+    x = 5, y = 5;
 
     wxBufferedPaintDC dc(this);
     wxFont f = font;
 
-    DoGetBestClientSize();
+    //DoGetBestClientSize();
 
     dc.SetBrush(wxBrush(NormalColour));
     dc.SetPen(wxPen(BorderColour));
@@ -194,14 +201,24 @@ void wxFlatButton:: mouseReleased(wxMouseEvent &evt)
 
 void wxFlatButton:: mouseLeftWindow(wxMouseEvent &evt)
 {
+    if (Pressed)
+    {
+        wxCommandEvent e(EVT_FLATBUTTON_UP, GetId() );
+        e.SetEventObject( this );
+        GetEventHandler()->ProcessEvent(e);
+    }
     Pressed = 0;
     Hovered = 0;
+
+    wxCommandEvent e(EVT_FLATBUTTON_LEFT, GetId() );
+    e.SetEventObject( this );
+    GetEventHandler()->ProcessEvent(e);
+
     Refresh();
 }
 
 void wxFlatButton:: sizeEvent(wxSizeEvent &evt)
 {
-    //CalculateSize();
     Refresh();
 }
 

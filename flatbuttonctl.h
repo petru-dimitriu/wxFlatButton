@@ -19,6 +19,7 @@
 #define EVT_FLATBUTTON_UP      1
 #define EVT_FLATBUTTON_HOVER   2
 #define EVT_FLATBUTTON_DOWN    3
+#define EVT_FLATBUTTON_LEFT    4
 
 class wxFlatButton : public wxPanel
 {
@@ -42,11 +43,14 @@ private:
     void eraseEvent (wxEraseEvent&);
     void sizeEvent (wxSizeEvent&);
     wxSize DoGetBestClientSize();
+    wxSize CalculateBestSize();
 
 public:
     wxFlatButton(wxWindow* parent, const long id, wxString SmallText,
                  wxString BigText = "", wxFont f = *wxNORMAL_FONT,
-                 int smallSize = 10, int bigSize = 15);
+                 int smallSize = 10, int bigSize = 15,
+                 wxPoint position = wxDefaultPosition,
+                 wxSize size = wxDefaultSize);
 
     void SetSmallText(wxString);
     void SetBigText(wxString);

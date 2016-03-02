@@ -4,14 +4,8 @@
 #include <wx/aui/aui.h>
 
 #include <wx/sizer.h>
-#include <wx/menu.h>
-#include <wx/textctrl.h>
-#include <wx/toolbar.h>
 #include <wx/panel.h>
-#include <wx/button.h>
-#include <wx/frame.h>
-#include <wx/statusbr.h>
-#include <wx/notebook.h>
+#include <wx/textctrl.h>
 
 class MainWindow: public wxFrame
 {
@@ -24,6 +18,7 @@ class MainWindow: public wxFrame
         void FlatButtonDown(wxCommandEvent &event);
         void FlatButtonUp(wxCommandEvent &event);
         void FlatButtonHover(wxCommandEvent &event);
+        void FlatButtonLeft(wxCommandEvent &event);
 
 };
 

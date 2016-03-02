@@ -10,7 +10,9 @@ MainWindow::MainWindow(wxWindow* parent,wxWindowID id) : wxFrame(NULL,wxID_ANY,"
     Connect(1234,EVT_FLATBUTTON_DOWN,(wxObjectEventFunction)&MainWindow::FlatButtonDown);
     Connect(1234,EVT_FLATBUTTON_UP,(wxObjectEventFunction)&MainWindow::FlatButtonUp);
     Connect(1234,EVT_FLATBUTTON_HOVER,(wxObjectEventFunction)&MainWindow::FlatButtonHover);
+    Connect(1234,EVT_FLATBUTTON_LEFT,(wxObjectEventFunction)&MainWindow::FlatButtonLeft);
     SetClientSize(Button->GetMinClientSize());
+    Fit();
 }
 
 MainWindow::~MainWindow()
@@ -33,6 +35,10 @@ void MainWindow::FlatButtonHover(wxCommandEvent &event)
     *(MessageViewer->Box) << wxString("BUTTON HOVERED\n");
 }
 
+void MainWindow::FlatButtonLeft(wxCommandEvent &event)
+{
+    *(MessageViewer->Box) << wxString("BUTTON LEFT\n");
+}
 
 MessageWindow::MessageWindow() : wxFrame(NULL,wxID_ANY,"Messages",wxDefaultPosition,wxSize(200,200))
 {
