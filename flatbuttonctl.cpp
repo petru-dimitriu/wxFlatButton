@@ -7,20 +7,20 @@
 
 #include "flatbuttonctl.h"
 
-wxFlatButton :: wxFlatButton(wxWindow * parent, const long id, wxString st, wxString bt, wxFont f, int ss, int bs) : wxPanel(parent, id)
+wxFlatButton :: wxFlatButton(wxWindow * parent, const long id, wxString smallText, wxString bigText, wxFont font, int smallSize, int bigSize) : wxPanel(parent, id)
 {
-    SmallText = st;
-    font = f;
-    BigText = bt;
-    SmallSize=ss;
-    BigSize=bs;
-    CalculateSize();
+    SmallText = smallText;
+    this->font = font;
+    BigText = bigText;
+    SmallSize = smallSize;
+    BigSize = bigSize;
+    DoGetBestClientSize();
 }
 
-void wxFlatButton::CalculateSize()
+wxSize wxFlatButton::DoGetBestClientSize()
 {
     wxMemoryDC dc;
-    x = 5, y = 5, height = 5, width = GetSize().GetWidth();
+    x = 5, y = 5, height = 5, width = 5;
     int smallTextWidth, bigTextWidth;
 
     wxFont f = font;
@@ -34,26 +34,30 @@ void wxFlatButton::CalculateSize()
 
     f.SetPointSize(SmallSize);
     dc.SetFont(f);
-
     smallTextWidth = dc.GetTextExtent(SmallText).GetWidth()+10;
 
     f.SetPointSize(BigSize);
     dc.SetFont(f);
     bigTextWidth = dc.GetTextExtent(BigText).GetWidth()+10;
+    width = std::max(smallTextWidth,bigTextWidth);
 
     height += dc.GetCharHeight();
 
-    width = std::max(std::max(smallTextWidth,bigTextWidth),width);
     SetMinClientSize(wxSize(width,height));
+
+    return wxSize(width,height);
 
 }
 
 void wxFlatButton:: paintEvent (wxPaintEvent &evt)
 {
+    int width = GetSize().GetWidth(),
+        height = GetSize().GetHeight();
+
     wxBufferedPaintDC dc(this);
     wxFont f = font;
 
-    CalculateSize();
+    DoGetBestClientSize();
 
     dc.SetBrush(wxBrush(NormalColour));
     dc.SetPen(wxPen(BorderColour));
@@ -78,18 +82,20 @@ void wxFlatButton:: paintEvent (wxPaintEvent &evt)
     dc.SetFont(f);
     dc.DrawText(SmallText,5,y);
 
-    SetMinClientSize(wxSize(width,height));
+    //SetMinClientSize(wxSize(width,height));
 }
 
 void wxFlatButton:: SetSmallText(wxString s)
 {
     SmallText = s;
+    InvalidateBestSize();
     Refresh();
 }
 
 void wxFlatButton:: SetBigText(wxString s)
 {
     BigText = s;
+    InvalidateBestSize();
     Refresh();
 }
 
@@ -195,7 +201,7 @@ void wxFlatButton:: mouseLeftWindow(wxMouseEvent &evt)
 
 void wxFlatButton:: sizeEvent(wxSizeEvent &evt)
 {
-    CalculateSize();
+    //CalculateSize();
     Refresh();
 }
 

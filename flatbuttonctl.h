@@ -41,7 +41,7 @@ private:
     void mouseLeftWindow (wxMouseEvent&);
     void eraseEvent (wxEraseEvent&);
     void sizeEvent (wxSizeEvent&);
-    void CalculateSize();
+    wxSize DoGetBestClientSize();
 
 public:
     wxFlatButton(wxWindow* parent, const long id, wxString SmallText,
