@@ -22,6 +22,7 @@ The widget sends the following wxCommandEvents:
 * `EVT_FLATBUTTON_DOWN`, when the user presses the button
 * `EVT_FLATBUTTON_UP`, when the user releases the button
 * `EVT_FLATBUTTON_HOVER`, when the user hovers the mouse pointer over the button
+* `EVT_FLATBUTTON_LEFT`, when the mouse pointer is no longer over the button
 
 ### Methods
 
